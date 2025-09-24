@@ -8,6 +8,8 @@
 
 Main inspiration was the [CD Repository by cr2007](https://github.com/cr2007/CV/tree/main) on GitHub.
 
+To build and deploy a new release tag has to be created:
+
 ### Local development (VS Code + Docker)
 
 Following the [guide](https://medium.com/@timju/latex-setup-with-vs-code-and-docker-612f998e1f23).
