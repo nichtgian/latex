@@ -1,5 +1,7 @@
 # LaTeX Documentation
 
+Template from [HSLU Seiten 1-3 Bachelorarbeit LaTeX](https://www.overleaf.com/latex/templates/hslu-i-bachelor-thesis-template/cqgxdvbwydmt) on Overleaf.
+
 [![latest release tag](https://img.shields.io/github/v/tag/nichtgian/latex?label=Download)](https://github.com/nichtgian/latex/releases/latest/download/Bericht.pdf)
 
 ## Documentation project setup
