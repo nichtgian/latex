@@ -1,0 +1,154 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Lucerne University of Applied Sciences and Arts
+% Version 0.4 - 11-03-2025
+%
+% HSLU-I: Official Thesis Template
+%
+% This template complies with the official guidelines for bachelor thesis provided
+% on complesis by the department HSLU-I (computer science).
+% It supports the languages english and german. The language can be set in
+% the section: Document Information
+%
+% Original guidelines can be found on complesis:
+% https://complesis.hslu.ch/
+%
+% Original author:
+%   Ramón Christen HSLU-I
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%----------------------------------------------------------------------------------------
+% PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\documentclass[12pt, a4paper, oneside]{book}    % document style definition
+\usepackage{hslu}                               % apply HSLU style
+\usepackage{comment}                            % having comment sections \begin{comment} \end{comment}
+\usepackage[utf8]{inputenc}                     % charactere interpretation
+\usepackage{amsmath}                            % math package
+\usepackage{amsfonts}                           % font package for math symbols
+\usepackage{amssymb}                            % symbols package - definition of math symbols
+\usepackage{listings}                           % package for code representation
+\usepackage{graphicx}                           % for inclusion of image
+\usepackage{subfig}                             % to arrange figures next to each other
+\usepackage{float}                              % text style surrounding images
+\usepackage[acronym]{glossaries}                % package for glossary
+\usepackage{tikz}                               % used to place logos on title page
+% \usepackage{gensymb}                          % for special characters such as °
+\usepackage[a-1a]{pdfx}                         % Forces PDF/A-1a compliance for long-term archiving
+
+
+\usepackage{multirow}
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{tikzscale}
+
+
+\hypersetup{hidelinks}                          % hide red border in hyperlinks
+\setcounter{tocdepth}{1}                        % hide subsections from TOC
+\makenoidxglossaries
+\input{acronyms}                                % include acronyms.txt file
+\input{glossary}                                % include glossary.txt file
+\graphicspath{{figs/}}          % set path of graphics folder
+
+
+%----------------------------------------------------------------------------------------
+% PDF/A DOCUMENT COMPLIANCE
+%----------------------------------------------------------------------------------------
+\pdfcatalog{
+  /StructTreeRoot <<                            % Define the structure tree root for document tagging
+    /Type /StructTreeRoot                       % Specify that this is a structure tree root
+    /K []                                       % Placeholder for structure elements (empty for now)
+  >>
+  /MarkInfo << /Marked true >>                  % Ensure the document is marked as tagged for accessibility
+}
+
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+% DOCUMENT INFORMATION
+%----------------------------------------------------------------------------------------
+\thesisLanguage{english}                        % set thesis language [english, german]
+\author{Author Name}                            % author name
+\city{Lucerne (Switzerland)}                    % author's place of origin
+\title{Thesis Title}                            % thesis title
+\subtitle{\large subtitle}                      % thesis subtitle
+
+\date{2024}                                     % the year when the thesis was written (used in titlepage)
+\defensedate{October 27th, 2024}                % the date of the private defense
+\defencelocation{Lucerne}                       % location of defence
+\extexpert{Expert Name}                         % name of external expert
+\indpartner{Company Name}                       % name of industry partner
+
+% jury, supervisor and dean are only relevant if acceptance sheet is enabled with the next line
+% \addAcceptsheet
+\jury{                                          % members of the jury
+    \begin{itemize}
+        \item Prof. Dr. Name Surname from Lucerne University of Applied Sciences and Arts, Switzerland (President of the Jury);
+        \item Prof. Dr. Name Surname from Lucerne University of Applied Sciences and Arts, Switzerland (Thesis Supervisor);
+        \item Prof. Dr. Name Surname from Lucerne University of Applied Sciences and Arts, Switzerland (External Expert).
+    \end{itemize}
+}
+
+\supervisor{Prof. Dr. Name Surname}             % name of supervisor
+\dean{Prof. Dr. Name Surname}                   % name of faculty dean
+
+\acknowledgments{Thanks to my family, relatives and firends for all the support given to finish this thesis.}
+
+
+
+%----------------------------------------------------------------------------------------
+% BEGIN DOCUMENT AND CREATE TITLEPAGE
+%----------------------------------------------------------------------------------------
+\maketitle
+
+
+
+%----------------------------------------------------------------------------------------
+% PREAMBLE
+%----------------------------------------------------------------------------------------
+\begin{abstractstyle}{\hsummary}
+    The content of your thesis in brief.
+\end{abstractstyle}
+
+\tableofcontents
+\listoffigures
+\listoftables
+% print list of acronyms and glossary
+\printnoidxglossaries
+
+
+
+%----------------------------------------------------------------------------------------
+% MAIN CONTENT
+%----------------------------------------------------------------------------------------
+\mainmatter
+
+% examplary content: write or compose the main document here
+\chapter{Main Content}
+This is a template of \gls{hslu} and then. This section usually comprises different chapters and subchapters.
+
+\section{First Section}
+Followed by a brief introduction, the section may comprise several subsections explaining various concepts and refering to external results \cite{christen_exogenous_2020}.
+
+\subsection{First Subsection}
+Content may also refer to special expressions such as that has to be explained in a separate section. Here we also have \gls{fuzzy logic} enough space and \gls{cww} to discuss the concept of \gls{nn} and so on.
+
+\begin{comment}
+    This is a sample comment.
+\end{comment}
+
+\bibliographystyle{ieeetr}
+\footnotesize\bibliography{references}
+
+
+
+%----------------------------------------------------------------------------------------
+% APPENDIX
+%----------------------------------------------------------------------------------------
+\appendix
+
+\glsaddallunused                                % add all unused items to glossary
+
+\end{document}

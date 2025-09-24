@@ -1,0 +1,368 @@
+% hslu.sty
+% A small package for HSLU theses. It makes sure that the
+% title page layout is as required.
+%
+% This style has been strongly modified from the style used at the University
+% of Geneva, Vision Group and the HumanIST Group at University of Fribourg.
+%
+% Author: Jean Hennebert 2005-2006
+% Adapted for new unifr logo: Angelika Garz 2013
+% Adapted for Human-IST: Pierre Vanhulst 2015
+% Adapted for seminars: Moreno Colombo 2018
+% Adapted for PhD: Moreno Colombo 2023
+% Adapted for HSLU: Ramón Christen 2024
+%
+%
+% Identification
+%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{hslu}
+
+%   v1.0 Original version
+%   v1.1 new language switch function
+%   (c) Lucerne University of Applied Sciences and Arts,
+
+
+% language switch function: supported languages [english, german]
+\def\lanen{english}
+\newif\ifde
+\newcommand{\thesisLanguage}[1]{%
+    \def\sellan{#1}
+    \ifx\sellan\lanen
+        \selectlanguage{english}
+    \else
+        \selectlanguage{german}
+        \detrue
+    \fi
+}
+\newcommand{\de}[2]{\ifde#1\else#2\fi}
+
+
+% enable acceptance sheet:
+\newif\ifacceptsheet
+\newcommand{\addAcceptsheet}{\acceptsheettrue}
+
+
+% Package load
+%%%%%%%%%%%%%%%%
+\RequirePackage{graphics}
+\RequirePackage{rotating}
+\RequirePackage{epstopdf}
+\RequirePackage[export]{adjustbox}
+\RequirePackage{enumitem,amssymb}
+\RequirePackage[english,german]{babel}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+
+% optional packages or settings
+\DeclareOption{inputenc}{\detrue}
+\ProcessOptions
+\RequirePackage[utf8]{inputenc}
+
+
+% Package Body
+%%%%%%%%%%%%%%%%
+%% set up the page dimensions. This assumes a4 paper.
+% vertical
+\voffset -15mm
+\topmargin 0mm
+\headheight 5mm
+\headsep 12.5mm
+\textheight 235mm
+
+% horizontal
+\oddsidemargin 10mm
+\evensidemargin 0mm
+\textwidth 147mm
+
+\reversemarginpar
+
+%% set up new commands for defining the email address and tech. report no., etc.
+\newcommand*{\email}[1]{\textsf{#1}}
+\newcommand*{\supervisor}[1]{\def\supervis{#1}}
+\newcommand*{\city}[1]{\def\orig{#1}}
+%\newcommand*{\thesisno}[1]{\def\thesisnum{#1}}
+\newcommand*{\defensedate}[1]{\def\defensedatevar{#1}}
+\newcommand*{\jury}[1]{\def\jurymembers{#1}}
+\newcommand*{\dean}[1]{\def\deanoffaculty{#1}}
+\newcommand*{\subtitle}[1]{\def\subtit{#1}}
+\newcommand*{\extexpert}[1]{\def\extexp{#1}}
+\newcommand*{\indpartner}[1]{\def\indpart{#1}}
+\newcommand*{\honornote}[1]{\def\honor{#1}}
+\newcommand*{\defencelocation}[1]{\def\defencelocation{#1}}
+\newcommand*{\acknowledgments}[1]{\def\acknowledgments{#1}}
+
+% english text
+\def\en@logo{figs/HSLU_Logo_EN_Schwarz_cmyk.eps}
+\def\en@uniname{Lucerne University of Applied Sciences and Arts (Switzerland)}
+\def\en@depname{School of Computer Science and Information Technology}
+\def\en@presented{presented to \en@depname{} of \en@uniname{} in consideration for the award of the academic grade of \emph{Bachelor in Computer Science.}}
+\def\en@thesis@term{Bachelor Thesis}
+\def\en@by{by}
+\def\en@from{from}
+\def\en@accept@txt{Accepted by \en@depname{} of \en@uniname{} upon the recommendation of:}
+\def\en@sign@supervisor{Supervisor}
+\def\en@sign@fac@dean{Faculty Dean}
+\def\en@summary{Summary}
+
+\def\en@cons@hmain{Declaration}
+\def\en@cons@hi{Bachelor Thesis at Lucerne University of Applied Sciences and Arts\\ \en@depname{}}
+\def\en@cons@title{Title of Bachelor Thesis}
+\def\en@cons@student{Name of Student}
+\def\en@cons@study@topic{Degree Program}
+\def\en@cons@def@year{Year of Graduation}
+\def\en@cons@supervis{Main Advisor}
+\def\en@cons@expert{External Expert}
+\def\en@cons@ind@partner{Industry partner/provider}
+\def\en@cons@hii{Code/Thesis Classification}
+\def\en@cons@public{Public (Standard)}
+\def\en@cons@confid{Private}
+\def\en@cons@hiii{Declaration}
+\def\en@cons@self{I hereby declare that I have completed this thesis alone and without any unauthorized or external help. I further declare that all the sources, references, literature and any other associated resources have been correctly and appropriately cited and referenced. The confidentiality of the project provider (industry partner) as well as the intellectual property rights of the Lucerne University of Applied Sciences and Arts have been fully and entirely respected in completion of this thesis.}
+\def\en@cons@sign{Place/Date, Signature}
+\def\en@cons@hiv{Submission of the Thesis to the Portfolio Database}
+\def\en@cons@vis{Confirmation by the student}
+\def\en@cons@save{I hereby confirm that this bachelor thesis has been correctly uploaded to the Portfolio Database in line with the code of practice of the University. I rescind all responsibility and authorization after upload so that no changes or amendments to the document may be undertaken.}
+\def\en@cons@thanks{Expression of thanks and gratitute}
+\def\en@cons@ip{Intellectual property of the degree programs of the Lucerne University of Applied Sciences and Arts, FH Zentralschweiz, in accordance with Student Regulations: \href{https://srl.lu.ch/app/de/texts_of_law/521/versions/4065}{Studienordnung}}
+
+
+% german text
+\def\de@cons@hmain{Erklärung}
+\def\de@logo{figs/HSLU_Logo_DE_Schwarz_cmyk.eps}
+\def\de@uniname{Hochschule Luzern (Schweiz)}
+\def\de@depname{Informatik}
+\def\de@presented{vorgelegt am Departement \de@depname{} der \de@uniname{} in Anbetracht zur Erreichung des akademischen Grades \emph{Bachelor in Informatik.}}
+\def\de@thesis@term{Bachelorarbeit}
+\def\de@by{von}
+\def\de@from{von}
+\def\de@accept@txt{Angenommen von \de@depname{} der \de@uniname{} auf Empfehlung von:}
+\def\de@sign@supervisor{Betreuer}
+\def\de@sign@fac@dean{Fakultätsleiter}
+\def\de@summary{Kurzfassung}
+
+\def\de@cons@hi{Bachelorarbeit an der Hochschule Luzern - \de@depname}
+\def\de@cons@title{Titel}
+\def\de@cons@student{Studentin/Student}
+\def\de@cons@study@topic{Studiengang}
+\def\de@cons@def@year{Abschlussjahr}
+\def\de@cons@supervis{Betreuungsperson}
+\def\de@cons@expert{Expertenperson}
+\def\de@cons@ind@partner{Auftraggeberin/Auftraggeber}
+\def\de@cons@hii{Codierung/Klassifizierung der Arbeit}
+\def\de@cons@public{Öffentlich (Normalfall)}
+\def\de@cons@confid{Vertraulich}
+\def\de@cons@hiii{Eidesstattliche Erklärung}
+\def\de@cons@self{Ich erkläre hiermit, dass ich die vorliegende Arbeit selbständig und ohne unerlaubte fremde Hilfe angefertigt habe, alle verwendeten Quellen, Literatur und andere Hilfsmittel angegeben habe, wörtlich oder inhaltlich entnommene Stellen als solche kenntlich gemacht habe das Vertraulichkeitsinteresse des Auftraggebers wahren und die Urheberrechtsbestimmungen der Hochschule Luzern respektieren werde. }
+\def\de@cons@sign{Ort/Datum, Unterschrift}
+\def\de@cons@hiv{Abgabe der Arbeit auf der Portfolio Datenbank}
+\def\de@cons@vis{Bestätigungsvisum Studentin/Student}
+\def\de@cons@save{Ich bestätige, dass ich die Bachelorarbeit korrekt gemäss Merkblatt auf der Portfolio Datenbank ablege. Die Verantwortlichkeit sowie die Berechtigungen gebe ich ab, so dass ich keine Änderungen mehr vornehmen oder weitere Dateien hochladen kann.}
+\def\de@cons@thanks{Verdankung}
+\def\de@cons@ip{Geistiges Eigentum gemäss der \href{https://srl.lu.ch/app/de/texts_of_law/521/versions/4065}{Studienordnung} für die Ausbildung\\
+an der Hochschule Luzern, FH Zentralschweiz}
+
+% template labels
+\def\logo{\de{\de@logo}{\en@logo}}
+\def\uniname{\de{\de@uniname}{\en@uniname}}
+\def\depname{\de{\de@depname}{\en@depname}}
+\def\presented{\de{\de@presented}{\en@presented}}
+\def\thesis@term{\de{\de@thesis@term}{\en@thesis@term}}
+\def\by{\de{\de@by}{\en@by}}
+\def\from{\de{\de@from}{\en@from}}
+\def\accept@txt{\de{\de@accept@txt}{\en@accept@txt}}
+\def\sign@supervisor{\de{\de@sign@supervisor}{\en@sign@supervisor}}
+\def\sign@fac@dean{\de{\de@sign@fac@dean}{\en@sign@fac@dean}}
+\def\hsummary{\de{\de@summary}{\en@summary}}
+
+\def\cons@hmain{\de{\de@cons@hmain}{\en@cons@hmain}}
+\def\cons@hi{\de{\de@cons@hi}{\en@cons@hi}}
+\def\cons@title{\de{\de@cons@title}{\en@cons@title}}
+\def\cons@student{\de{\de@cons@student}{\en@cons@student}}
+\def\cons@study@topic{\de{\de@cons@study@topic}{\en@cons@study@topic}}
+\def\cons@def@year{\de{\de@cons@def@year}{\en@cons@def@year}}
+\def\cons@supervis{\de{\de@cons@supervis}{\en@cons@supervis}}
+\def\cons@expert{\de{\de@cons@expert}{\en@cons@expert}}
+\def\cons@ind@partner{\de{\de@cons@ind@partner}{\en@cons@ind@partner}}
+\def\cons@hii{\de{\de@cons@hii}{\en@cons@hii}}
+\def\cons@public{\de{\de@cons@public}{\en@cons@public}}
+\def\cons@confid{\de{\de@cons@confid}{\en@cons@confid}}
+\def\cons@hiii{\de{\de@cons@hiii}{\en@cons@hiii}}
+\def\cons@self{\de{\de@cons@self}{\en@cons@self}}
+\def\cons@sign{\de{\de@cons@sign}{\en@cons@sign}}
+\def\cons@hiv{\de{\de@cons@hiv}{\en@cons@hiv}}
+\def\cons@vis{\de{\de@cons@vis}{\en@cons@vis}}
+\def\cons@save{\de{\de@cons@save}{\en@cons@save}}
+\def\cons@thanks{\de{\de@cons@thanks}{\en@cons@thanks}}
+\def\cons@ip{\de{\de@cons@ip}{\en@cons@ip}}
+
+%% Custom commands
+\newcommand{\resq}[2]{\paragraph{}\textbf{\emph{RQ{#1}. #2}}\\} % Command to write research questions
+
+%% Create abstract environment
+\newlength\tindent
+\newenvironment{abstractstyle}[1]{%
+    \cleardoublepage
+    \begin{center}\LARGE\textbf{#1}\end{center}
+    \vspace{1cm}
+
+    \setlength{\tindent}{\parindent}
+    \setlength{\parindent}{0pt}
+    }{%
+    \vspace{1cm}
+    \setlength{\parindent}{\tindent}
+}
+
+\DeclareFontFamily{\encodingdefault}{\ttdefault}{\hyphenchar\font=`\-} % Allow hyphen in texttt
+
+
+%% title page: redefine maketitle to do what we want
+\renewcommand\maketitle{\begin{titlepage}%
+    \begin{center}%
+        \begin{figure}
+            \centering
+                    % uncomment next line to add HSLU logo
+                    % \includegraphics[height=.07\textwidth,valign=t]{\logo}
+            \hfill
+            \vspace{20mm}
+        \end{figure}
+
+        {\large \depname \par \uniname}
+
+        \vskip 20mm%
+        {\LARGE \textsc \@title \\ \subtit \vskip \baselineskip \par}%
+
+        \vskip 20mm
+        {\LARGE \textsc \thesis@term \par}
+        \vskip 3mm
+        {\small \presented}
+
+        \vskip 20mm
+        {\by \par}
+        \vskip 5mm
+        {\LARGE \textbf{\@author} \par}%
+        \vskip 5mm
+        {\from \par}
+        \vskip 5mm
+        {\LARGE \orig}
+
+        \vfill%
+
+        % {\textsc Thesis No.: \thesisnum
+        % \par Uniprint
+        % \par \@date}
+
+    \end{center}
+\end{titlepage}%
+
+%% Supervisor consent
+\pagenumbering{gobble}
+
+    \ifacceptsheet
+        % page: acceptance sheed
+        \noindent \accept@txt
+        \jurymembers
+
+
+        \noindent \defencelocation, \defensedatevar
+
+        \begin{table}[b]
+            \centering
+            \begin{tabular}{p{.5\textwidth} p{.5\textwidth}}
+                 \textbf{\supervis}\newline \sign@supervisor{} & \textbf{\deanoffaculty}\newline \sign@fac@dean{} \\ & \\ & \\ & \\ & \\ & \\ & \\ & \\ &
+            \end{tabular}
+        \end{table}
+    \fi
+
+    \frontmatter
+    \clearpage
+    % page: declaration
+    \begin{abstractstyle}{\cons@hmain}
+        {\Large \noindent \cons@hi}
+
+        \vskip 5mm
+        \begin{tabular}{l l}
+            \cons@title:  & \@title \\
+            \\[-4mm]
+            \cons@student:  & \@author \\
+            \\[-4mm]
+            \cons@study@topic: & Bachelor Informatik\\
+            \\[-4mm]
+            \cons@def@year: & \@date \\
+            \\[-4mm]
+            \cons@supervis: & \supervis \\
+            \\[-4mm]
+            \cons@expert: & \extexp \\
+            \\[-4mm]
+            \cons@ind@partner: & \indpart \\
+        \end{tabular}
+
+        \vskip 9mm
+        {\Large \noindent \cons@hii}
+
+        \vskip 5mm
+        \begin{todolist}
+            \item \cons@public
+            \vspace{-2mm}
+            \item \cons@confid
+        \end{todolist}
+        \vspace{-4mm}
+
+        \vskip 9mm
+        {\Large \noindent \cons@hiii }
+
+        \vskip 5mm
+        \noindent \cons@self
+
+        \vskip 8.5mm
+        \noindent \cons@sign{} \underline{\hspace{5cm}}
+
+        \vskip 9mm
+        {\Large \noindent \cons@hiv}
+
+        \vskip 5mm
+        \noindent \cons@vis
+
+        \vskip 3.5mm
+        \noindent \cons@save
+
+        \vskip 8.5mm
+        \noindent \cons@sign{} \underline{\hspace{5cm}}
+
+    % page: experssion of thanks and gratitute
+        \clearpage
+        {\Large \noindent \cons@thanks}
+
+        \vskip 5mm
+        \acknowledgments
+
+        \vskip 3.5mm
+        \raggedleft
+        \@author, \@date
+
+        \raggedright
+        \vfill
+        \noindent\textit{\cons@ip}
+
+    \end{abstractstyle}
+
+\setcounter{footnote}{0}%
+
+\global\let\@acceptedfor\@empty
+\global\let\@assist\@empty
+\global\let\@author\@empty
+\global\let\@date\@empty
+\global\let\@email\@empty
+\global\let\@seminarname\@empty
+\global\let\@supervis\@empty
+\global\let\@thanks\@empty
+\global\let\@title\@empty
+
+\global\let\and\relax
+\global\let\author\relax
+\global\let\date\relax
+\global\let\email\relax
+\global\let\maketitle\relax
+\global\let\thanks\relax
+\global\let\title\relax
+}

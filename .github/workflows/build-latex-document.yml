@@ -1,0 +1,38 @@
+name: Build LaTeX document
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v5
+
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          # latexmk_use_xelatex: true
+
+      - name: Check output
+        run: ls
+
+      - name: Change PDF name
+        run: mv main.pdf Bericht.pdf
+
+      - name: Check output (after rename)
+        run: ls
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: Bericht.pdf

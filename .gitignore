@@ -1,0 +1,5 @@
+# LaTeX Workshop
+out/
+
+# REMOVE if works
+.devcontainer/
